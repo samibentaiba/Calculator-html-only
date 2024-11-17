@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Styled Calculator</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-weight: 700;
+        font-family: "Arial", sans-serif;
+      }
+      p {
+        font-weight: 800;
+        font-style: normal;
+        font-size: 24px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #3b4664;
+      }
+      .calculator {
+        width: 500px;
+        border-radius: 20px;
+      }
+      .button-container-container {
+        background-color: #242d44;
+        width: 100%;
+        height: 440px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .header {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+
+      .theme-switch {
+        display: flex;
+        align-items: center;
+        font-size: 10px;
+        gap: 20px;
+      }
+
+      .theme-toggle {
+        background-color: #242d44;
+        padding: 5px;
+        border-radius: 15px;
+        width: 60px;
+        display: flex;
+        justify-content: space-around;
+        color: #fff;
+        font-size: 16px;
+      }
+      .display {
+        width: 100%;
+        height: 70px;
+        border-radius: 10px;
+        background-color: #181f33;
+        color: #fff;
+        font-size: 2rem;
+        text-align: right;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: none;
+        outline: none;
+      }
+
+      .button-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+
+      .button {
+        padding: 15px;
+        width: 90px;
+        border: none;
+        border-radius: 10px;
+        background-color: #eae3dc;
+        color: #444b5a;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .button:hover {
+        background-color: #d3cfc7;
+      }
+
+      .button.operation {
+        width: 90px;
+        background-color: #eae3dc;
+        color: #444b5a;
+      }
+
+      .button.del {
+        width: 90px;
+        background-color: #5672a6;
+        color: #fff;
+      }
+
+      .button.reset {
+        width: auto;
+        grid-column: span 2;
+        background-color: #5672a6;
+        color: #fff;
+      }
+
+      .button.equal {
+        width: auto;
+        grid-column: span 2;
+        background-color: #d03f2f;
+        color: #fff;
+      }
+
+      @media (max-width: 400px) {
+        .calculator {
+          width: 100%;
+          padding: 15px;
+        }
+
+        .display {
+          font-size: 1.5rem;
+        }
+
+        .button {
+          font-size: 1rem;
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="header">
+        <p>calc</p>
+        <div class="theme-switch">
+          <span>THEME</span>
+          <div class="theme-toggle">
+            <span>1</span><span>2</span><span>3</span>
+          </div>
+        </div>
+      </div>
+
+      <input type="text" id="result" class="display" readonly />
+      <div class="button-container-container">
+        <div class="button-container">
+          <button class="button" onclick="appendValue('7')">7</button>
+          <button class="button" onclick="appendValue('8')">8</button>
+          <button class="button" onclick="appendValue('9')">9</button>
+          <button class="button del" onclick="deleteLast()">DEL</button>
+
+          <button class="button" onclick="appendValue('4')">4</button>
+          <button class="button" onclick="appendValue('5')">5</button>
+          <button class="button" onclick="appendValue('6')">6</button>
+          <button class="button operation" onclick="appendValue('+')">+</button>
+
+          <button class="button" onclick="appendValue('1')">1</button>
+          <button class="button" onclick="appendValue('2')">2</button>
+          <button class="button" onclick="appendValue('3')">3</button>
+          <button class="button operation" onclick="appendValue('-')">-</button>
+
+          <button class="button" onclick="appendValue('.')">.</button>
+          <button class="button" onclick="appendValue('0')">0</button>
+          <button class="button operation" onclick="appendValue('/')">/</button>
+          <button class="button operation" onclick="appendValue('*')">x</button>
+
+          <button class="button reset" onclick="clearResult()">RESET</button>
+          <button class="button equal" onclick="calculateResult()">=</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      function appendValue(value) {
+        document.getElementById("result").value += value;
+      }
+
+      function clearResult() {
+        document.getElementById("result").value = "";
+      }
+
+      function deleteLast() {
+        const result = document.getElementById("result").value;
+        document.getElementById("result").value = result.slice(0, -1);
+      }
+
+      function calculateResult() {
+        const result = document.getElementById("result").value;
+        try {
+          document.getElementById("result").value = eval(result);
+        } catch (e) {
+          document.getElementById("result").value = "Error";
+        }
+      }
+    </script>
+  </body>
+</html>
